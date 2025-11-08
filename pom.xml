@@ -31,7 +31,8 @@
         <xiaoming-springdoc-ui.version>4.1.0</xiaoming-springdoc-ui.version>
         <fastjson.version>1.2.83</fastjson.version>
         <hutool.version>5.8.4</hutool.version>
-        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mybatis-plus-join.version>1.5.4</mybatis-plus-join.version>
         <commons-codec.version>1.15</commons-codec.version>
         <jwt.version>0.11.5</jwt.version>
     </properties>

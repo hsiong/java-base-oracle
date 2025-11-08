@@ -66,7 +66,14 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- mybatis-plus -->
+        <!-- mybatis-plus-join (包含连表查询功能) -->
+        <dependency>
+            <groupId>com.github.yulichang</groupId>
+            <artifactId>mybatis-plus-join-boot-starter</artifactId>
+            <version>${mybatis-plus-join.version}</version>
+        </dependency>
+
+        <!-- mybatis-plus 核心依赖 (提供基础功能和注解) -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>

@@ -29,5 +29,82 @@ public @interface SqlUtilProperty {
      * 表别名
      */
     String tableAlias() default "";
+    
+    /**
+     * 数据库字段名（如果与Java字段名不一致时使用）
+     */
+    String column() default "";
+    
+    /**
+     * 查询类型
+     */
+    QueryType type() default QueryType.EQ;
+    
+    /**
+     * 是否忽略该字段
+     */
+    boolean ignore() default false;
+    
+    /**
+     * 查询类型枚举
+     */
+    enum QueryType {
+        /**
+         * 等于
+         */
+        EQ,
+        /**
+         * 不等于
+         */
+        NE,
+        /**
+         * 大于
+         */
+        GT,
+        /**
+         * 大于等于
+         */
+        GE,
+        /**
+         * 小于
+         */
+        LT,
+        /**
+         * 小于等于
+         */
+        LE,
+        /**
+         * 模糊查询
+         */
+        LIKE,
+        /**
+         * 左模糊查询
+         */
+        LIKE_LEFT,
+        /**
+         * 右模糊查询
+         */
+        LIKE_RIGHT,
+        /**
+         * IN 查询
+         */
+        IN,
+        /**
+         * NOT IN 查询
+         */
+        NOT_IN,
+        /**
+         * BETWEEN
+         */
+        BETWEEN,
+        /**
+         * IS NULL
+         */
+        IS_NULL,
+        /**
+         * IS NOT NULL
+         */
+        IS_NOT_NULL
+    }
 
 }
