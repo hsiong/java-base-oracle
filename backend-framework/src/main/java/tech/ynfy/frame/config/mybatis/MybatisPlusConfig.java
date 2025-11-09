@@ -4,29 +4,28 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.github.yulichang.interceptor.MPJInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MybatisPlusConfig {
-
-
-    /**
-     * MybatisPlus拦截器配置
-     * 包含：分页插件、乐观锁插件、MPJ连表插件
-     *
-     * @return
-     */
-    @Bean
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 乐观锁插件
-        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
-        // 分页插件
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.POSTGRE_SQL));
-        // MPJ 连表插件
-        interceptor.addInnerInterceptor(new MPJInterceptor());
-        return interceptor;
-    }
+	
+	
+	/**
+	 * MybatisPlus拦截器配置
+	 * 包含：分页插件、乐观锁插件、MPJ连表插件
+	 *
+	 * @return
+	 */
+	@Bean
+	public MybatisPlusInterceptor mybatisPlusInterceptor() {
+		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+		// 乐观锁插件
+		interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+		// 分页插件
+		interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.ORACLE));
+		// MPJ 连表插件 - 无需手动注册
+		// interceptor.addInnerInterceptor(new MPJInterceptor());
+		return interceptor;
+	}
 }

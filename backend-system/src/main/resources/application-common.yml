@@ -25,10 +25,10 @@ spring:
       max-request-size: 20MB
   datasource:
     ##spring数据源配置
-    driverClassName: org.postgresql.Driver
+    driverClassName: oracle.jdbc.OracleDriver
     ## 单数据源 移除 druid 依赖, 并取消注释以下配置, 注释所有 druid 配置
     password: ${config.datasource.password}
-    url: jdbc:postgresql://${config.datasource.url}:5432/icbc?setUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=GMT%2B8&tinyInt1isBit=false
+    url: jdbc:oracle:thin:@//${config.datasource.url}:1521/${config.datasource.serviceName}
     username: ${config.datasource.username}
   # redis 配置
   redis:
@@ -71,6 +71,8 @@ mybatis-plus:
     # 关闭MP3.0自带的banner
     banner: false
     db-config:
+      # 数据库类型
+      db-type: oracle
       #主键类型  0:"数据库ID自增",1:"该类型为未设置主键类型", 2:"用户输入ID",3:"全局唯一ID (数字类型唯一ID)", 4:"全局唯一ID UUID",5:"字符串全局唯一ID (idWorker 的字符串表示)";
       id-type: ASSIGN_ID
       # 默认数据库表下划线命名

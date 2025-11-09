@@ -14,6 +14,7 @@ config:
     # 端口，默认为6379
     port: 6379
   datasource:
-    password: postgres
+    password: oracle
     url: localhost
-    username: postgres
+    username: oracle
+    serviceName: ORCL
