@@ -17,6 +17,7 @@ config:
     password: postgres
     url: remoteUrl
     username: postgres
+    schema: dev
     
 mybatis-plus:
   configuration:
