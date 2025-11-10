@@ -30,6 +30,8 @@ spring:
     password: ${config.datasource.password}
     url: jdbc:oracle:thin:@//${config.datasource.url}:1521/${config.datasource.serviceName}
     username: ${config.datasource.username}
+    hikari:
+      connectionInitSql: ALTER SESSION SET CURRENT_SCHEMA=${config.datasource.schema}
   # redis 配置
   redis:
     # 地址

@@ -18,3 +18,4 @@ config:
     url: localhost
     username: oracle
     serviceName: ORCL
+    schema: test
