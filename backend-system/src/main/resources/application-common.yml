@@ -24,14 +24,27 @@ spring:
       # 文件上传设置总上传的文件大小
       max-request-size: 20MB
   datasource:
-    ##spring数据源配置
-    driverClassName: oracle.jdbc.OracleDriver
-    ## 单数据源 移除 druid 依赖, 并取消注释以下配置, 注释所有 druid 配置
-    password: ${config.datasource.password}
-    url: jdbc:oracle:thin:@//${config.datasource.url}:1521/${config.datasource.serviceName}
-    username: ${config.datasource.username}
-    hikari:
-      connectionInitSql: ALTER SESSION SET CURRENT_SCHEMA=${config.datasource.schema}
+    ## 多数据源配置 (使用dynamic-datasource)
+    dynamic:
+      # 设置默认的数据源或者数据源组,默认值即为master
+      primary: oracle
+      # 严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      strict: false
+      datasource:
+        # Oracle主数据源 (CRM等业务数据)
+        oracle:
+          driver-class-name: oracle.jdbc.OracleDriver
+          url: jdbc:oracle:thin:@//${config.datasource.oracle.url}:${config.datasource.oracle.port}/${config.datasource.oracle.serviceName}
+          username: ${config.datasource.oracle.username}
+          password: ${config.datasource.oracle.password}
+          hikari:
+            connection-init-sql: ALTER SESSION SET CURRENT_SCHEMA=${config.datasource.oracle.schema}
+        # PostgreSQL次数据源 (Customer 360 档案数据)
+        postgres:
+          driver-class-name: org.postgresql.Driver
+          url: jdbc:postgresql://${config.datasource.postgres.url}:${config.datasource.postgres.port}/${config.datasource.postgres.database}
+          username: ${config.datasource.postgres.username}
+          password: ${config.datasource.postgres.password}
   # redis 配置
   redis:
     # 地址

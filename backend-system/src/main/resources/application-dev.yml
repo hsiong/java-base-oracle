@@ -14,10 +14,20 @@ config:
     # 端口，默认为6379
     port: 6379
   datasource:
-    password: postgres
-    url: remoteUrl
-    username: postgres
-    schema: dev
+    oracle:
+      password: oracle
+      url: localhost
+      port: 1521
+      username: oracle
+      serviceName: ORCL
+      schema: test
+    # PostgreSQL数据源配置
+    postgres:
+      url: localhost
+      port: 5432
+      database: customer360
+      username: postgres
+      password: postgres
     
 mybatis-plus:
   configuration:

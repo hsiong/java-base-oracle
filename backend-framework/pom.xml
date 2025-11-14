@@ -66,6 +66,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Dynamic datasource support -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+        
+
         <!-- mybatis-plus-join (包含连表查询功能) -->
         <dependency>
             <groupId>com.github.yulichang</groupId>
@@ -86,7 +94,15 @@
             <artifactId>ojdbc8</artifactId>
             <scope>runtime</scope>
         </dependency>
-        
+
+        <!-- PostgreSQL JDBC Driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+
         <!-- swagger -->
         <dependency>
             <groupId>org.springdoc</groupId>

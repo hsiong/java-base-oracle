@@ -1,6 +1,5 @@
 package tech.ynfy.frame.config.mybatis;
 
-import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -14,6 +13,7 @@ public class MybatisPlusConfig {
 	/**
 	 * MybatisPlus拦截器配置
 	 * 包含：分页插件、乐观锁插件、MPJ连表插件
+	 * 支持多数据源：Oracle（主）和 PostgreSQL（次）
 	 *
 	 * @return
 	 */
@@ -22,8 +22,10 @@ public class MybatisPlusConfig {
 		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
 		// 乐观锁插件
 		interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
-		// 分页插件
-		interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.ORACLE));
+		// 动态方言
+		PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
+		paginationInnerInterceptor.setDialect(new DynamicRoutingDialect());
+		interceptor.addInnerInterceptor(paginationInnerInterceptor);
 		// MPJ 连表插件 - 无需手动注册
 		// interceptor.addInnerInterceptor(new MPJInterceptor());
 		return interceptor;
