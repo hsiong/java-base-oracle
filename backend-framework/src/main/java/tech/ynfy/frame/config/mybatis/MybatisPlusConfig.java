@@ -1,5 +1,6 @@
 package tech.ynfy.frame.config.mybatis;
 
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -29,5 +30,18 @@ public class MybatisPlusConfig {
 		// MPJ 连表插件 - 无需手动注册
 		// interceptor.addInnerInterceptor(new MPJInterceptor());
 		return interceptor;
+	}
+	
+	/**
+	 * 把插件加到 MyBatis Configuration 中
+	 */
+	@Bean
+	public ConfigurationCustomizer configurationCustomizer(VarcharLengthCheckInterceptor varcharLengthCheckInterceptor) {
+		return configuration -> configuration.addInterceptor(varcharLengthCheckInterceptor);
+	}
+	
+	@Bean
+	public VarcharLengthCheckInterceptor varcharLengthCheckInterceptor() {
+		return new VarcharLengthCheckInterceptor();
 	}
 }

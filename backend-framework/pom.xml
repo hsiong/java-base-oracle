@@ -99,7 +99,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <version>42.3.6</version> <!-- 没版本的话建议补一个，或用你们统一版本 -->
         </dependency>
 
 
