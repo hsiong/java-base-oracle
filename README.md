@@ -6,7 +6,9 @@ This is an open-source project — any bright ideas are welcome.
 We reserve the right to ensure accountability for any commercial use without our authorization.
 任何未经授权的商用行为，我们保留追责的权利
 
-# Introduction
+# Introduction 
+
+> 中文文档: [README-CHS.md](https://github.com/ynfy-tech/java-base-multidb/blob/main/README-CHS.md)
 
 This project is dedicated to providing a simple and lightweight development framework that allows you to quickly build any Java backend monolithic application.
 
