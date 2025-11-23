@@ -1,74 +1,84 @@
 # Before You Start
 
-Open source project, any bright idea would be welcomed.  
-开源项目, 欢迎您加入到本项目
+This is an open-source project — any bright ideas are welcome.
+开源项目，欢迎您加入到本项目
 
-We reserves the right to ensure accountability of any commercial use without our authorization.  
-任何非授权的商用行为, 我们保留追责的权利
+We reserve the right to ensure accountability for any commercial use without our authorization.
+任何未经授权的商用行为，我们保留追责的权利
 
-# Introduce
+# Introduction
 
-本项目致力于实现一个简易、轻量的开发框架, 方便您能够快速开发任意一个 java 后端单体应用。
+This project is dedicated to providing a simple and lightweight development framework that allows you to quickly build any Java backend monolithic application.
 
-本项目在架构设计上, 力求实现高效、简洁、低耦合、高聚合, 易于拆分和重组。所有与核心业务无关的拓展模块, 均以 backend-tool-xxx 命名, 与核心代码隔离, 灵活集成。
+From an architectural perspective, the project aims for high efficiency, simplicity, low coupling, high cohesion, and easy splitting or recomposition. All non–core business extension modules are named **backend-tool-xxx**, isolated from core code and flexibly integrated.
 
-本架构包含以下功能:
+## Architecture
 
-+ 基础框架 Spring Boot
-  + 本地文件路径映射
-  + 自定义拦截 - 重复提交验证
-  + 数据序列化配置
-  + 跨域问题处理
-  + 上下文丢失问题处理
-  + XSS 攻击防范
-  + 全局异常捕获
-  + 配置文件动态加载(@profiles.active@)
-+ 线程池
-  + 基础线程池配置
-  + 定长线程池配置
-  + 异步线程池配置
-+ 缓存 Redis
-  + 初始化配置
-  + 数据序列化配置
-  + 基于 Redis 的 Spring Cache 实现
-+ Restful API - Spring-Doc Open API 3.0
-  + 初始化配置
-  + API 分组
-+ 多数据源 Druid
-+ 持久层 Mybatis Plus
-  + 初始化配置
-  + 自动注入 createdBy, createdAt, updatedBy, updatedAt
-  + 基础 PO 定义(雪花id, createdBy, createdAt, updatedBy, updatedAt)
-+ 登录
-  + 密码验证: MD5 + 随机盐
-  + 登录状态: JWT + Redis
-  + Token 续约
-+ 权限分配
-  + 基于 RBAC 实现资源的权限分配
-+ 文件管理
-+ 数据字典
-  + 初始化
-  + 注解
-  + 性能优化
-+ 日志 Logback
-  + 初始化配置
-  + 控制台输出彩色日志
-  + 轻量日志框架 plumelog
-+ 代码生成工具
-+ 常用工具类
-  + SpringUtil: 封装常用的 Spring Context 信息
-  + RedisUtil: 封装常用的 Redis 操作
-  + HttpUtil: 封装常用的 HttpUtil 操作
-+ 其他工具推荐
-  + [weapp-taro-templates: 本项目的前端代码, 配套使用更香哦](https://github.com/ynfy-tech/weapp-taro-templates)
-  + [ynfy-tool-easypoi: 增强型 Poi , 在 EasyPoi 的基础上, 实现多 sheet 和复杂样式的 excel 导出, 适用于各种复杂场景](https://github.com/ynfy-tech/ynfy-tool-easypoi)
-  + [ynfy-tool-httpconnect: 基于 HttpURLConnection 实现的 HTTP 工具, 用于后端自动化测试](https://github.com/ynfy-tech/ynfy-tool-httpconnect)
-  + ynfy-tool-pay: 微信支付/支付宝支付工具包, 抽象实现支付功能和回调, 便于灵活调用
-  + ynfy-tool-encrypt: 常用的加解密工具包, 包含前后端常用的加解密工具类
+- **backend-common**: Contains entities, enums, and general utilities (SpringUtil, RedisUtil, HttpUtil, etc.). It does **not** depend on specific frameworks and is intended to reuse business-agnostic capabilities.
+- **backend-framework**: Provides Spring Boot auto-configuration (CORS, interceptors, context, serialization, MyBatis Plus, Druid, Redis, thread pools, Spring-Doc/OpenAPI, etc.) and injects `backend-system` via a starter pattern.
+- **backend-system**: The actual business module, exposing REST APIs, RBAC permissions, login/authentication, file & dictionary management. Profiles such as `application-*.yml` (dev/test/prod) are used for environment separation.
 
+Request pipeline: **Controller → Service → MyBatis Plus Mapper → Multi-Datasource Druid → Redis / external resources**.
+Security layer uses JWT + Redis to maintain online state. Unified global exception handling and `Result` wrapper; front-end may integrate with **weapp-taro-templates** or other apps.
+
+## Feature Highlights
+
+- **Core Framework**: Spring Boot, custom interceptors (anti-duplicate submission), XSS filtering, global exceptions, context propagation, local file mapping, dynamic configuration (`@profiles.active@`).
+- **Threading & Caching**: Basic / fixed / async thread pools; Redis initialization & serialization, Spring Cache integration.
+- **Data Access**: Druid multi-data-source, MyBatis Plus auto-filling (`createdBy/createdAt/updatedBy/updatedAt`), Snowflake ID, XML mapper filtering, data dictionary annotation for faster lookup.
+- **API Capabilities**: Spring-Doc OpenAPI 3.0 grouped docs, Logback colored logging + Plumelog, code generator.
+- **Security & Permissions**: Login (password MD5+Salt), JWT+Redis sessions, token renewal, RBAC permission management.
+- **Additional Tools**: File management, common utilities, recommended ecosystem modules such as **weapp-taro-templates**, **ynfy-tool-easypoi/httpconnect/pay/encrypt**, etc.
 
 # Tech Stack
 
-# What Can We Do
+- Java 17, multi-module Maven (aggregator `pom.xml`)
+- Spring Boot 2.7.x, Spring Cloud 2021.0.3
+- MyBatis Plus & MyBatis Plus Join, Druid, Redis
+- Spring-Doc OpenAPI 3.x, Lombok, Hutool, Fastjson, Logback / Plumelog
+- JUnit 4 testing framework
 
-# Tutorials
+# What You Can Do
+
+## How to Use
+
+1. **Environment Requirements**: Install JDK 17+, Maven 3.8+, Redis/MySQL (or any configured datasource). Prepare additional schemas if you use multiple datasources.
+
+2. **Clone & Build**:
+
+   ```
+   git clone https://github.com/ynfy-tech/java-base-multidb.git
+   cd java-base-multidb
+   mvn clean install
+   ```
+
+   To rebuild framework modules only:
+   `mvn clean install -pl backend-framework -am`
+
+3. **Configuration**: Configure datasource, Redis, JWT secrets, etc. in
+   `backend-system/src/main/resources/application-dev.yml`.
+   When creating new profile files, also update resource filtering in `backend-system/pom.xml`.
+
+4. **Run**:
+
+   ```
+   mvn -pl backend-system spring-boot:run -Pdev
+   # Or
+   mvn -pl backend-system package -Pdev
+   java -jar backend-system/target/backend-system-1.0.0-SNAPSHOT.jar --spring.profiles.active=dev
+   ```
+
+5. **API Testing**: After startup, visit `http://localhost:8080/doc.html` (or your Spring-Doc UI address) for auto-generated OpenAPI documentation. Use Postman or a frontend template for integration testing.
+
+6. **Testing**: Default profiles skip tests. Run:
+
+   ```
+   mvn test -DskipTests=false
+   ```
+
+   This covers multi-datasource routing, permission/auth flows, and other key logic.
+
+## Tutorials
+
+Coming soon: scaffold usage, code generator examples, and integration tutorials with **weapp-taro-templates**.
+If you need more, feel free to submit an issue.
